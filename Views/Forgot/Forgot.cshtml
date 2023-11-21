@@ -1,0 +1,45 @@
+﻿@model Final_NET.Models.Account
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gửi lại mật khẩu</title>
+    <link rel="stylesheet" href="~/login/css/style.css">
+    <link rel="stylesheet" href="~/css/verification.css" />
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <form method="post" class="signin-form" style="height:300px; width:300px">
+        <div class="form-container">
+            <div class="form-group mb-3">
+                <label for="name">Username</label>
+                <input type="text" id="Username" placeholder="Username" required name="Username" asp-for="Username">
+                @if (ViewBag.SuccessMessage != null)
+                {
+                    <span class="text-success">@ViewBag.SuccessMessage</span><br>
+                    <a style="cursor:pointer;" asp-action="Login" asp-controller="Login"> Trở về Đăng nhập </a>
+                }
+                @if (ViewBag.ErrorMessage != null)
+                {
+                    <span class="text-danger">@ViewBag.ErrorMessage</span><br>
+                    <a style="cursor:pointer;" asp-action="Register" asp-controller="Register"> Đăng ký </a>
+                }
+            </div>
+            <div class="form-group">
+                <button type="submit" class="form-control btn btn-primary rounded submit px-3" asp-action="SendPassword" asp-controller="Forgot">
+                    Xác nhận
+                </button>
+            </div>
+        </div>
+    </form>
+</body>
+</html>

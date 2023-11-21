@@ -1,0 +1,68 @@
+﻿@model Final_NET.Models.Account
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Xác Nhận</title>
+    <link rel="stylesheet" href="~/login/css/style.css">
+    <link rel="stylesheet" href="~/css/verification.css" />
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <form method="post" class="signin-form" style="height:300px; width:300px">
+        <div class="form-container">
+            <div class="form-group">
+                <label for="code">Mã xác nhận đã được gửi đến <span>@TempData["name"]</span></label>
+                <div>Thời gian còn lại: </div>
+                <div id="countdown" name="time">03:00</div>
+                <input type="text" id="confirmCode" placeholder="Nhập mã xác nhận" required name="ConfirmCode">
+                <input type="hidden" id="countdownValue" name="CountdownValue" />
+                @if (ViewBag.ErrorMessage != null)
+                {
+                    <span class="text-danger">@ViewBag.ErrorMessage</span>
+                }
+            </div>
+            <div class="form-group d-md-flex">
+                <div style="cursor:pointer;">
+                    <a asp-action="Verification" asp-controller="Verification" >Gửi lại mã</a>
+                </div>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="form-control btn btn-primary rounded submit px-3" asp-action="CheckValidateOtp" asp-controller="Verification">
+                    Xác nhận
+                </button>
+            </div>
+        </div>
+    </form>
+
+    <script>
+        var countdownTime = 180;
+        var countdownElement = document.getElementById('countdown');
+
+        function updateCountdown() {
+            var minutes = Math.floor(countdownTime / 60);
+            var seconds = countdownTime % 60;
+
+            countdownElement.textContent = (minutes < 10 ? '0' : '') + minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
+
+            document.getElementById('countdownValue').value = countdownTime;
+
+            if (countdownTime > 0) {
+                countdownTime--;
+                setTimeout(updateCountdown, 1000);
+            }
+        }
+
+        updateCountdown();
+    </script>
+</body>
+</html>
