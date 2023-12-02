@@ -191,7 +191,7 @@ namespace Final_NET.Controllers
 
         private string ReplaceImageLink(string input)
         {
-            Regex regex = new Regex(@"https://\S+\.(jpg|png|gif|jpeg)");
+            Regex regex = new Regex(@"https://\S+\.(jpg|png|gif|jpeg|webp)");
             string output = regex.Replace(input, @"<div style=""display: flex; align-items: center; justify-content: center; margin: 10px""><img src=""$0"" alt=""~/img/error.jpg""></div>");
             return output;
         }
